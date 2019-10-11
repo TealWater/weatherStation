@@ -1,14 +1,12 @@
 package app;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import org.apache.poi.util.IOUtils;
+import org.json.JSONObject;
 
 //import org.apache.poi.util.IOUtils;
 
@@ -41,23 +39,30 @@ public class test {
            /*--- End of writing output to the server ---*/
 
             /*--- Read Output from the server---*/
-            InputStream in = new BufferedInputStream( conn.getInputStream() ); //Reads incoming bytes
-            String result = IOUtils.toString();
+            /*InputStream in = new BufferedInputStream( conn.getInputStream() ); //Reads incoming bytes
+            System.out.println("Response Code: " +conn.getResponseCode() + " "); //Displays the response code from server 
+            //String result = IOUtils.toString();*/
             
 
-            /*BufferedReader in = new BufferedReader(new InputStreamReader( conn.getInputStream() ) );  //read incoming bytes
-            StringBuffer result = new StringBuffer();  //helps with conversion from Buffered Reader
-            String response;*/
+            BufferedReader in = new BufferedReader(new InputStreamReader( conn.getInputStream() ) );  //read incoming bytes
+            StringBuffer response = new StringBuffer();  //helps with conversion from Buffered Reader
+            String result;
+            System.out.println("Response Code: " +conn.getResponseCode() + " "); //Displays the response code from server 
             System.out.println("Here3");
-            /*--- End of Read output from the server---*/
-            /*while( (response = in.readLine() ) !=null ){
-                result.append(response);
+            
+            while( (result = in.readLine() ) !=null ){
+                response.append(result);
             }
-            */
+            
             System.out.println(result);
             in.close();
-            conn.disconnect();
+            //conn.disconnect();
+            /*--- End of Read output from the server---*/
 
+            /*--- JSON API Response Conversion ---*/
+            JSONObject obj = new JSONObject(response.toString());
+            System.out.println(obj + " ");
+            /*--- End of JSON API Response Conversion ---*/
             
         } catch (Exception e) {
             // TODO Auto-generated catch block

@@ -4,4 +4,5 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="output" path="bin"/>
 	<classpathentry kind="lib" path="/Users/matthewstraughn/Code/javaProjects/weatherStation/src/app/poi-4.1.0.jar"/>
+	<classpathentry kind="lib" path="bin/app/java-json.jar"/>
 </classpath>
