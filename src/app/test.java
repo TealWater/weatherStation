@@ -41,11 +41,6 @@ public class test {
            /*--- End of writing output to the server ---*/
 
             /*--- Read Output from the server---*/
-            /*InputStream in = new BufferedInputStream( conn.getInputStream() ); //Reads incoming bytes
-            System.out.println("Response Code: " +conn.getResponseCode() + " "); //Displays the response code from server 
-            //String result = IOUtils.toString();*/
-            
-
             BufferedReader in = new BufferedReader(new InputStreamReader( conn.getInputStream() ) );  //read incoming bytes
             StringBuffer response = new StringBuffer();  //helps with conversion from Buffered Reader
             String result;
@@ -56,20 +51,23 @@ public class test {
                 response.append(result);
             }
             in.close(); //close the inputstream reader
-            //conn.disconnect();
+            conn.disconnect();
             /*--- End of Read output from the server---*/
 
             /*--- JSON API Response Conversion ---*/
             JSONObject obj = new JSONObject(response.toString());
-            System.out.println(obj + " ");
+            //System.out.println(obj + " ");
             /*--- End of JSON API Response Conversion ---*/
 
             /*--- Start: Pasrse the JSON Response ---*/
 
-
-            
+            //Stores the Temperature Summary Array Object
+            JSONObject tempSum = obj.getJSONObject("main");
             //This provides the atmospheric temp summary.
-            System.out.println(obj.getJSONObject("main") );
+            //System.out.println("Summary: "+ tempSum );
+            
+            //one of the key: value pairs of the array object
+            System.out.println(tempSum.get("temp") );
             /*--- End: Pasrse the JSON Response ---*/
             
         } catch (Exception e) {
