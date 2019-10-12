@@ -55,9 +55,7 @@ public class test {
             while( (result = in.readLine() ) !=null ){
                 response.append(result);
             }
-            
-            System.out.println(result);
-            in.close();
+            in.close(); //close the inputstream reader
             //conn.disconnect();
             /*--- End of Read output from the server---*/
 
@@ -65,6 +63,14 @@ public class test {
             JSONObject obj = new JSONObject(response.toString());
             System.out.println(obj + " ");
             /*--- End of JSON API Response Conversion ---*/
+
+            /*--- Start: Pasrse the JSON Response ---*/
+
+
+            
+            //This provides the atmospheric temp summary.
+            System.out.println(obj.getJSONObject("main") );
+            /*--- End: Pasrse the JSON Response ---*/
             
         } catch (Exception e) {
             // TODO Auto-generated catch block
