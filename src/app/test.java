@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.security.InvalidParameterException;
 
 import org.json.JSONObject;
 
@@ -63,21 +64,46 @@ public class test {
 
             //Stores the Temperature Summary Array Object
             JSONObject tempSum = obj.getJSONObject("main");
+
             //This provides the atmospheric temp summary.
             //System.out.println("Summary: "+ tempSum );
             
             //one of the key: value pairs of the array object
-            System.out.println(tempSum.get("temp") );
+            System.out.println(tempSum.get("temp")  + " Kelvin\n");
+
+            tempConversion('C', tempSum.get("temp").toString() );
+
             /*--- End: Pasrse the JSON Response ---*/
             
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
-
-
+    
+}
+/**
+ * 
+ * @param L the char that allows for the temperature to be in Fahrenheight or Celsius
+ * @param num The kelvin number that you want to convert
+ */
+public void tempConversion(char L, String num) throws Exception{
+    Double temp = Double.valueOf(num);
+    Double result = 0.0;
+    if (L == 'f' || L == 'F'){
+        //provide fahrenheight
+        result = (((temp - 273) * 9/5) + 32);
+        System.out.println("*F: " + (int)Math.round(result));
+    }
+    else if(L == 'c' || L == 'C'){
+        //provide celsius
+        result = temp - 273.15;
+        System.out.println("*C: " + (int)Math.round(result));
+    }else{
+        throw new InvalidParameterException("the char entered is not a valid parameter."+ 
+        " Please enter in 'F' or 'f' for Fahrenheight. For Celsius please enter 'C' or 'c'.");
+    }
+    
+}
+    
 }
 
-
-}
