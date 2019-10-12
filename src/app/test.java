@@ -9,16 +9,15 @@ import java.security.InvalidParameterException;
 
 import org.json.JSONObject;
 
-
-
-//import org.apache.poi.util.IOUtils;
-
+/* TODO
+* Create fields for [Temp High, Temp Low, Current Temp], 
+* Pressure, Conditions(Cloudy, partly cloudy, overcast, rain, snow).
+* 
+* Append zip code, state, town to URL.
+*/
 
 
 public class test {
-    //public static void main(String[] args) {
-       
-    //}
 
     public void web() {
         String json = "zip=10603, us";
@@ -104,6 +103,7 @@ public class test {
         }
     
     }
+
     
 }
 
