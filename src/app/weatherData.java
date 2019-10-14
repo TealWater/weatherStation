@@ -12,10 +12,10 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 /* TODO
-* Create fields for [Temp High, Temp Low, Current Temp], *done
-* Pressure, Conditions(Cloudy, partly cloudy, overcast, rain, snow).
-* 
-* Append zip code, state, town to URL.
+* Consider finding a website with an API that allows you to enter in the 
+* city and state and returns the latitude and longitude coordinates.
+*       - You can take those coordinates and plug them into the openweather's
+*            API URL.
 */
 
 public class weatherData {
