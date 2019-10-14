@@ -98,8 +98,8 @@ public class test {
             System.out.print("The current pressure is: " +
             tempSum.get("humidity") + "%\n" );
             //Condition
-            System.out.print("The current pressure is: " +
-            weather.length().toString()+ "\n" ); //try looking at the 1st item 
+            System.out.print("The current condition is: " +
+            weather.getJSONObject(0).get("main")+ "\n" ); //try looking at the 1st item 
                                                  //in the array and then parse for "condition"
 
             /*--- End of atmospheric conditions ---*/
