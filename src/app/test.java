@@ -7,6 +7,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.InvalidParameterException;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 /* TODO
@@ -64,13 +65,44 @@ public class test {
             //Stores the Temperature Summary Array Object
             JSONObject tempSum = obj.getJSONObject("main");
 
+            //Stores weather condition summary
+            JSONArray weather = obj.getJSONArray("weather");
+            //JSONObject condition = weather.getJSONObject("description");
+
             //This provides the atmospheric temp summary.
             //System.out.println("Summary: "+ tempSum );
             
             //one of the key: value pairs of the array object
-            System.out.println(tempSum.get("temp")  + " Kelvin\n");
+            //System.out.println(tempSum.get("temp")  + " Kelvin\n");
+            
+            /*--- Temperature report ---*/
+            //Temp High
+            System.out.print("Temp High: " );
+            tempConversion('f', tempSum.get("temp_max").toString() );
 
-            tempConversion('C', tempSum.get("temp").toString() );
+            //Current temp
+            System.out.print("Temp: ");
+            tempConversion('f', tempSum.get("temp").toString() );
+          
+            //Temp Low
+            System.out.print("Temp Low: ");
+            tempConversion('f', tempSum.get("temp_min").toString() );
+           /*--- End of temperature report ---*/
+
+            /*--- Atmospheric Conditions ---*/
+            //Pressure
+            System.out.print("The current pressure is: " +
+            tempSum.get("pressure") + " hpa\n" );
+            
+            //Humidity
+            System.out.print("The current pressure is: " +
+            tempSum.get("humidity") + "%\n" );
+            //Condition
+            System.out.print("The current pressure is: " +
+            weather.length().toString()+ "\n" ); //try looking at the 1st item 
+                                                 //in the array and then parse for "pressure"
+
+            /*--- End of atmospheric conditions ---*/
 
             /*--- End: Pasrse the JSON Response ---*/
             
