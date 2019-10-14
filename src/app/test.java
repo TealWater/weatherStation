@@ -11,7 +11,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 /* TODO
-* Create fields for [Temp High, Temp Low, Current Temp], 
+* Create fields for [Temp High, Temp Low, Current Temp], *done
 * Pressure, Conditions(Cloudy, partly cloudy, overcast, rain, snow).
 * 
 * Append zip code, state, town to URL.
@@ -100,7 +100,7 @@ public class test {
             //Condition
             System.out.print("The current pressure is: " +
             weather.length().toString()+ "\n" ); //try looking at the 1st item 
-                                                 //in the array and then parse for "pressure"
+                                                 //in the array and then parse for "condition"
 
             /*--- End of atmospheric conditions ---*/
 
