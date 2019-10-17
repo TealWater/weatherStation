@@ -34,7 +34,7 @@ public class geoSearch {
     }//end of urlEncoder()
     
 
-        public void web(){
+        public void geoEncoder(){
         try {
         URL url = new URL("https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=AIzaSyCPAYQsQaQwH4rD55sBNBpJtSP1r6jJSqk"); //url we want to talk to
         HttpURLConnection conn = (HttpURLConnection) url.openConnection(); // opens connection and casts it to type HTTPURLConnection (makes it more secure?)

@@ -19,7 +19,7 @@ import org.json.JSONObject;
 */
 
 public class weatherData {
-    private String country, city, zip; //How we narrow down your location
+    private String country, city, state, zip; //How we narrow down your location
    // URL urlZip = new URL("pro.openweathermap.org/data/2.5/forecast/hourly?zip=94040,us");
 
 /*------------------ Setters ------------------*/
