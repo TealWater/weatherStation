@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - geoSearch",
+            "request": "launch",
+            "mainClass": "app.geoSearch",
+            "projectName": "weatherStation"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - test",
             "request": "launch",
             "mainClass": "app.test",
