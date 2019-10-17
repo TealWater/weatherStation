@@ -3,8 +3,11 @@ package app;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -14,8 +17,24 @@ import org.json.JSONObject;
 public class geoSearch {
     public static void main(String[] args) {
         
+        urlEncoder("Geneva", "NY");
+
+    }//end of main
+
+    public static void urlEncoder(String city, String state){
+        city += ", ";
+        try {
+            System.out.println( 
+                URLEncoder.encode(city, StandardCharsets.UTF_8.toString() ) +
+                 URLEncoder.encode(state, StandardCharsets.UTF_8.toString() ) 
+                );
+        } catch (UnsupportedEncodingException ex) {
+            throw new RuntimeException(ex.getCause());
+        }
+    }//end of urlEncoder()
     
 
+        public void web(){
         try {
         URL url = new URL("https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=AIzaSyCPAYQsQaQwH4rD55sBNBpJtSP1r6jJSqk"); //url we want to talk to
         HttpURLConnection conn = (HttpURLConnection) url.openConnection(); // opens connection and casts it to type HTTPURLConnection (makes it more secure?)
@@ -69,6 +88,6 @@ public class geoSearch {
         e.printStackTrace();
         }
 
-    }//end of main
+    }//end of web()
 
 }//end of geoSearch class
