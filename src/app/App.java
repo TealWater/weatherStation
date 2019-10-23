@@ -16,10 +16,9 @@ public class App {
             System.out.println("Hello1");
             System.out.println("City: " );
             location1.setCity();
-            System.out.println("Country: ");
-            location1.setCountry();
-
-            location1.web(location1.getCity(), location1.getCountry() );
+            System.out.println("State: ");
+            location1.setState();
+            location1.web(location1.getCity(), location1.getState());
             //trial.web();
         }else{
             //ask for zip

@@ -44,6 +44,12 @@ public class weatherData {
         zip = System.console().readLine().toString();
         System.out.println("The zip code is " + zip);
     }
+
+    // set the user's state
+    public void setState() {
+        state = System.console().readLine().toString();
+        System.out.println("The state is " + state);
+    }
     /*------------------ Setters ------------------*/
 
     /*------------------ Getters ------------------*/
@@ -61,13 +67,18 @@ public class weatherData {
     public String getZip() {
         return zip;
     }
+
+    // Reutrns the state the user inputted
+    public String getState() {
+        return state;
+    }
     /*------------------ Getters ------------------*/
 
     /* How the fuck are we going to deliver this data to the open weather api? */
 
     // send data to openWeather.com API in JSON formant to get a resopnse
-    public void sendData(String city, String country) {
-        web(city, country);
+    public void sendData(String city, String state) {
+        web(city, state);
     }
 
     // send data to openWeather.com API in JSON formant to get a resopnse
@@ -81,7 +92,7 @@ public class weatherData {
     public void web(String zip) {
         try {
             URL url = new URL("https://api.openweathermap.org/data/2.5/weather?zip=" + zip
-                    + ",us&appid=5c5cd74d13a8f68d2cab041ee826b8e6"); // url we want to talk to
+                    + ",us&appid=2fde14716377aa681d3c55151b6dcc59"); // url we want to talk to
             HttpURLConnection conn = (HttpURLConnection) url.openConnection(); // opens connection and casts it to type
                                                                                // HTTPURLConnection (makes it more
                                                                                // secure?)
@@ -174,11 +185,12 @@ public class weatherData {
         }
 
     }// end of web()
-
-    public void web(String city, String country) {
+    //uses the lat and longitiude coordinates to give an accurate forecast
+    public void web(String city, String state) {
+        //System.out.println("getting the data");
         try {
-            URL url = new URL("https://api.openweathermap.org/data/2.5/weather?q=" + city + "," + country
-                    + "&appid=5c5cd74d13a8f68d2cab041ee826b8e6"); // url we want to talk to
+            String send = geoEncoder(city, state);
+            URL url = new URL("https://api.openweathermap.org/data/2.5/weather?"+ send +"&appid=2fde14716377aa681d3c55151b6dcc59"); // url we want to talk to
             HttpURLConnection conn = (HttpURLConnection) url.openConnection(); // opens connection and casts it to type
                                                                                // HTTPURLConnection (makes it more
                                                                                // secure?)
@@ -296,6 +308,7 @@ public class weatherData {
     }// end of tempConversion()
 
     public String urlEncoder(String city, String state) {
+        //System.out.println("encoding url!");
         city += ", ";
         try {
             return (URLEncoder.encode(city, StandardCharsets.UTF_8.toString())
@@ -305,10 +318,14 @@ public class weatherData {
         }
     }// end of urlEncoder()
 
-    public void geoEncoder(String city, String state) {
+    public String geoEncoder(String city, String state) {
+        //System.out.println("getting coordinates!");
+        String query = urlEncoder(city, state);
+        //System.out.println("Query: " + query);
+        String send = "";
         try {
             URL url = new URL(
-                    "https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=AIzaSyCPAYQsQaQwH4rD55sBNBpJtSP1r6jJSqk"); // url
+                    "https://maps.googleapis.com/maps/api/geocode/json?address="+query+"&key=AIzaSyAWVtgPG_3JJXKPQWq7o5MdSp05q70YKdY"); // url
                                                                                                                                                                            // we
                                                                                                                                                                            // want
                                                                                                                                                                            // to
@@ -323,7 +340,7 @@ public class weatherData {
             conn.setDoOutput(true); // allows us to send data
             conn.setDoInput(true); // allows us to read a response
             conn.setRequestMethod("POST");
-            System.out.println("Here1");
+            //System.out.println("Here1");
 
             /*--- Write Output to the server---*/
             OutputStream out = conn.getOutputStream(); // the vehicle we use to send data to API
@@ -332,7 +349,7 @@ public class weatherData {
             out.flush(); // Always flush after doing your business, no one likes smelling or looking at
                          // it. (All data is sent to the server)
             out.close(); // close the portal, it helps keep things neat
-            System.out.println("Here2");
+           // System.out.println("Here2");
             /*--- End of writing output to the server ---*/
 
             /*--- Read Output from the server---*/
@@ -341,7 +358,7 @@ public class weatherData {
             String result;
             System.out.println("Response Code: " + conn.getResponseCode() + " "); // Displays the response code from
                                                                                   // server
-            System.out.println("Here3");
+            //System.out.println("Here3");
 
             while ((result = in.readLine()) != null) {
                 response.append(result);
@@ -352,6 +369,7 @@ public class weatherData {
 
             /*--- JSON API Response Conversion ---*/
             JSONObject obj = new JSONObject(response.toString());
+           // System.out.println("Hi");
             // System.out.println(obj + " ");
 
             JSONArray location = obj.getJSONArray("results");
@@ -361,14 +379,20 @@ public class weatherData {
             String lng = location.getJSONObject(0).getJSONObject("geometry").getJSONObject("location").get("lng")
                     .toString();
 
+            send = "lat=" + lat + "&lon=" + lng+ "";//this the the lat and long format for the open weather API
+
             System.out.println("Latitiude is: " + lat + "\nLongitude is: " + lng);
             /*--- End of JSON API Response Conversion ---*/
+           // System.out.println("Done!");
+            return send;
 
         } // end of try
         catch (Exception e) {
+            //System.out.println("fail!");
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        return send;
 
     }// end of geoEncoder()
 
