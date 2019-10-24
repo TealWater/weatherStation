@@ -14,17 +14,9 @@ import java.security.InvalidParameterException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-/* TODO
-* Consider finding a website with an API that allows you to enter in the 
-* city and state and returns the latitude and longitude coordinates.
-*       - You can take those coordinates and plug them into the openweather's
-*            API URL.
-*/
 
 public class weatherData {
     private String country, city, state, zip; // How we narrow down your location
-    // URL urlZip = new
-    // URL("pro.openweathermap.org/data/2.5/forecast/hourly?zip=94040,us");
 
     /*------------------ Setters ------------------*/
     // Sets the user's country
@@ -74,7 +66,6 @@ public class weatherData {
     }
     /*------------------ Getters ------------------*/
 
-    /* How the fuck are we going to deliver this data to the open weather api? */
 
     // send data to openWeather.com API in JSON formant to get a resopnse
     public void sendData(String city, String state) {
@@ -131,7 +122,7 @@ public class weatherData {
 
             /*--- JSON API Response Conversion ---*/
             JSONObject obj = new JSONObject(response.toString());
-            // System.out.println(obj + " ");
+            // System.out.println(obj + " "); //Debugging
             /*--- End of JSON API Response Conversion ---*/
 
             /*--- Start: Pasrse the JSON Response ---*/
@@ -141,13 +132,6 @@ public class weatherData {
 
             // Stores weather condition summary
             JSONArray weather = obj.getJSONArray("weather");
-            // JSONObject condition = weather.getJSONObject("description");
-
-            // This provides the atmospheric temp summary.
-            // System.out.println("Summary: "+ tempSum );
-
-            // one of the key: value pairs of the array object
-            // System.out.println(tempSum.get("temp") + " Kelvin\n");
 
             /*--- Temperature report ---*/
             // Temp High
@@ -170,10 +154,8 @@ public class weatherData {
             // Humidity
             System.out.print("The current pressure is: " + tempSum.get("humidity") + "%\n");
             // Condition
-            System.out.print("The current condition is: " + weather.getJSONObject(0).get("main") + "\n"); // try looking
-                                                                                                          // at the 1st
-                                                                                                          // item
-            // in the array and then parse for "condition"
+            System.out.print("The current condition is: " + weather.getJSONObject(0).get("main") + "\n");
+
 
             /*--- End of atmospheric conditions ---*/
 
@@ -239,13 +221,6 @@ public class weatherData {
 
             // Stores weather condition summary
             JSONArray weather = obj.getJSONArray("weather");
-            // JSONObject condition = weather.getJSONObject("description");
-
-            // This provides the atmospheric temp summary.
-            // System.out.println("Summary: "+ tempSum );
-
-            // one of the key: value pairs of the array object
-            // System.out.println(tempSum.get("temp") + " Kelvin\n");
 
             /*--- Temperature report ---*/
             // Temp High
@@ -268,10 +243,8 @@ public class weatherData {
             // Humidity
             System.out.print("The current pressure is: " + tempSum.get("humidity") + "%\n");
             // Condition
-            System.out.print("The current condition is: " + weather.getJSONObject(0).get("main") + "\n"); // try looking
-                                                                                                          // at the 1st
-                                                                                                          // item
-            // in the array and then parse for "condition"
+            System.out.print("The current condition is: " + weather.getJSONObject(0).get("main") + "\n");
+            
 
             /*--- End of atmospheric conditions ---*/
 
@@ -308,7 +281,6 @@ public class weatherData {
     }// end of tempConversion()
 
     public String urlEncoder(String city, String state) {
-        //System.out.println("encoding url!");
         city += ", ";
         try {
             return (URLEncoder.encode(city, StandardCharsets.UTF_8.toString())
@@ -319,9 +291,7 @@ public class weatherData {
     }// end of urlEncoder()
 
     public String geoEncoder(String city, String state) {
-        //System.out.println("getting coordinates!");
         String query = urlEncoder(city, state);
-        //System.out.println("Query: " + query);
         String send = "";
         try {
             URL url = new URL(
@@ -340,7 +310,7 @@ public class weatherData {
             conn.setDoOutput(true); // allows us to send data
             conn.setDoInput(true); // allows us to read a response
             conn.setRequestMethod("POST");
-            //System.out.println("Here1");
+            //System.out.println("Here1"); //Debugging
 
             /*--- Write Output to the server---*/
             OutputStream out = conn.getOutputStream(); // the vehicle we use to send data to API
@@ -349,7 +319,7 @@ public class weatherData {
             out.flush(); // Always flush after doing your business, no one likes smelling or looking at
                          // it. (All data is sent to the server)
             out.close(); // close the portal, it helps keep things neat
-           // System.out.println("Here2");
+           // System.out.println("Here2"); //Debugging
             /*--- End of writing output to the server ---*/
 
             /*--- Read Output from the server---*/
@@ -369,8 +339,7 @@ public class weatherData {
 
             /*--- JSON API Response Conversion ---*/
             JSONObject obj = new JSONObject(response.toString());
-           // System.out.println("Hi");
-            // System.out.println(obj + " ");
+            // System.out.println(obj + " "); //Debugging
 
             JSONArray location = obj.getJSONArray("results");
 
@@ -383,12 +352,10 @@ public class weatherData {
 
             System.out.println("Latitiude is: " + lat + "\nLongitude is: " + lng);
             /*--- End of JSON API Response Conversion ---*/
-           // System.out.println("Done!");
             return send;
 
         } // end of try
         catch (Exception e) {
-            //System.out.println("fail!");
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
