@@ -13,13 +13,11 @@ public class App {
         temp = System.console().readLine().toString(); // Store the result of the answer from the user
         if(temp.equals("yes") || temp.equals("y") ){
             //get info
-            System.out.println("Hello1");
             System.out.println("City: " );
             location1.setCity();
             System.out.println("State: ");
             location1.setState();
             location1.web(location1.getCity(), location1.getState());
-            //trial.web();
         }else{
             //ask for zip
             System.out.println("Please enter your zip code: ");

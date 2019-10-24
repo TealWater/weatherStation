@@ -93,7 +93,7 @@ public class weatherData {
             conn.setDoOutput(true); // allows us to send data
             conn.setDoInput(true); // allows us to read a response
             conn.setRequestMethod("POST");
-            System.out.println("Here1");
+            //System.out.println("Here1"); //Debugging
 
             /*--- Write Output to the server---*/
             OutputStream out = conn.getOutputStream(); // the vehicle we use to send data to API
@@ -102,7 +102,7 @@ public class weatherData {
             out.flush(); // Always flush after doing your business, no one likes smelling or looking at
                          // it. (All data is sent to the server)
             out.close(); // close the portal, it helps keep things neat
-            System.out.println("Here2");
+            //System.out.println("Here2"); Debugging
             /*--- End of writing output to the server ---*/
 
             /*--- Read Output from the server---*/
@@ -111,7 +111,7 @@ public class weatherData {
             String result;
             System.out.println("Response Code: " + conn.getResponseCode() + " "); // Displays the response code from
                                                                                   // server
-            System.out.println("Here3");
+
 
             while ((result = in.readLine()) != null) {
                 response.append(result);
@@ -152,7 +152,7 @@ public class weatherData {
             System.out.print("The current pressure is: " + tempSum.get("pressure") + " hpa\n");
 
             // Humidity
-            System.out.print("The current pressure is: " + tempSum.get("humidity") + "%\n");
+            System.out.print("The current humidiity is: " + tempSum.get("humidity") + "%\n");
             // Condition
             System.out.print("The current condition is: " + weather.getJSONObject(0).get("main") + "\n");
 
@@ -182,7 +182,7 @@ public class weatherData {
             conn.setDoOutput(true); // allows us to send data
             conn.setDoInput(true); // allows us to read a response
             conn.setRequestMethod("POST");
-            System.out.println("Here1");
+            //System.out.println("Here1"); //Debugging
 
             /*--- Write Output to the server---*/
             OutputStream out = conn.getOutputStream(); // the vehicle we use to send data to API
@@ -191,7 +191,7 @@ public class weatherData {
             out.flush(); // Always flush after doing your business, no one likes smelling or looking at
                          // it. (All data is sent to the server)
             out.close(); // close the portal, it helps keep things neat
-            System.out.println("Here2");
+            //System.out.println("Here2"); //Debugging
             /*--- End of writing output to the server ---*/
 
             /*--- Read Output from the server---*/
@@ -200,7 +200,7 @@ public class weatherData {
             String result;
             System.out.println("Response Code: " + conn.getResponseCode() + " "); // Displays the response code from
                                                                                   // server
-            System.out.println("Here3");
+            //System.out.println("Here3"); //Debugging
 
             while ((result = in.readLine()) != null) {
                 response.append(result);
@@ -241,7 +241,7 @@ public class weatherData {
             System.out.print("The current pressure is: " + tempSum.get("pressure") + " hpa\n");
 
             // Humidity
-            System.out.print("The current pressure is: " + tempSum.get("humidity") + "%\n");
+            System.out.print("The current humidity is: " + tempSum.get("humidity") + "%\n");
             // Condition
             System.out.print("The current condition is: " + weather.getJSONObject(0).get("main") + "\n");
             
